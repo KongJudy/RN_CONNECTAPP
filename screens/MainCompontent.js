@@ -17,6 +17,7 @@ import { fetchDonations } from '../features/donations/donationsSlice';
 import { fetchQuotes } from '../features/quotes/quotesSlice';
 import { fetchRandomWord } from '../features/words/wordsSlice';
 import { fetchUsers } from '../features/users/usersSlice';
+import { fetchPrompts } from '../features/prompts/promptsSlice';
 import { reportWord } from '../features/words/reportsSlice';
 import { favoritesReducer } from '../features/quotes/favoritesSlice';
 
@@ -32,6 +33,7 @@ const Main = () => {
     dispatch(fetchQuotes());
     dispatch(reportWord());
     dispatch(fetchDonations());
+    dispatch(fetchPrompts());
   }, [dispatch]);
 
   const hideScreen = () => {
