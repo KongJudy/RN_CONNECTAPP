@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import Constants from 'expo-constants';
 import { Platform, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -12,16 +13,26 @@ import GameScreen from './GameScreen';
 import AboutScreen from './AboutScreen';
 import FavoriteScreen from './FavoriteScreen';
 import LoginScreen from './LoginScreen';
-import { USERS } from '../shared/users';
-import { WORDS } from '../shared/words';
-import { DONATIONS } from '../shared/donations';
+import { fetchDonations } from '../features/donations/donationsSlice';
+import { fetchQuotes } from '../features/quotes/quotesSlice';
+import { fetchRandomWord } from '../features/words/wordsSlice';
+import { fetchUsers } from '../features/users/usersSlice';
+import { reportWord } from '../features/words/reportsSlice';
+import { favoritesReducer } from '../features/quotes/favoritesSlice';
 
 const Tab = createBottomTabNavigator();
 
 const Main = () => {
-  const [users, setUsers] = useState(USERS);
-  const [currentWord, setCurrentWord] = useState(WORDS);
+  const dispatch = useDispatch();
   const [showWelcome, setShowWelcome] = useState(true);
+
+  useEffect(() => {
+    dispatch(fetchUsers());
+    dispatch(fetchRandomWord());
+    dispatch(fetchQuotes());
+    dispatch(reportWord());
+    dispatch(fetchDonations());
+  }, [dispatch]);
 
   const hideScreen = () => {
     setShowWelcome(false);
