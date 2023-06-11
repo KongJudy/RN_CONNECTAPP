@@ -15,7 +15,7 @@ export default function App() {
     <>
       <Provider store={store}>
         <PaperProvider>
-          <NavigationContainer style={styles.container}>
+          <NavigationContainer>
             <Main />
           </NavigationContainer>
         </PaperProvider>
