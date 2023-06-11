@@ -1,15 +1,9 @@
 import React, { useState } from 'react';
-import {
-  ImageBackground,
-  Modal,
-  Text,
-  StyleSheet,
-  View,
-  Linking
-} from 'react-native';
+import { ImageBackground, Modal, Text, StyleSheet, View } from 'react-native';
 import { Button } from 'react-native-paper';
 import { useSelector } from 'react-redux';
 import RenderDonations from '../features/donations/RenderDonations';
+import Colors from '../constants/colors';
 
 const AboutScreen = () => {
   const donations = useSelector((state) => state.donations.donationsArray);
@@ -24,10 +18,8 @@ const AboutScreen = () => {
   };
 
   const labelStyle = {
-    color: 'black',
     fontSize: 18,
-    fontFamily: 'Gaegu',
-    letterSpacing: 4
+    fontFamily: 'Gaegu'
   };
 
   return (
@@ -59,7 +51,8 @@ const AboutScreen = () => {
         <View style={styles.donationContainer}>
           <Button
             accessibilityLabel='View donations'
-            buttonColor='white'
+            buttonColor={Colors.color05}
+            textColor='#FFF'
             mode='contained'
             onPress={() => {
               handleModalOpen();
@@ -139,7 +132,9 @@ const styles = StyleSheet.create({
     marginTop: 20
   },
   button: {
-    marginBottom: 8
+    marginBottom: 8,
+    borderColor: Colors.color07,
+    borderWidth: 3
   }
 });
 

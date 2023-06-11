@@ -60,7 +60,10 @@ const styles = StyleSheet.create({
     color: Colors.color07
   },
   closeBtn: {
-    marginTop: 10
+    marginTop: 2,
+    marginBottom: 20,
+    borderColor: Colors.color07,
+    borderWidth: 2
   }
 });
 
