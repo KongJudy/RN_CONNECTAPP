@@ -51,7 +51,7 @@ const AboutScreen = () => {
         <View style={styles.donationContainer}>
           <Button
             accessibilityLabel='View donations'
-            buttonColor={Colors.color05}
+            buttonColor='#1616165e'
             textColor='#FFF'
             mode='contained'
             onPress={() => {
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
   },
   button: {
     marginBottom: 8,
-    borderColor: Colors.color07,
+    borderColor: '#1aca9e77',
     borderWidth: 3
   }
 });

@@ -101,7 +101,7 @@ const UserScreen = () => {
         >
           <Button
             accessibilityLabel='Login'
-            buttonColor='#FFF'
+            buttonColor='#ffffffc4'
             icon={Logos.connectLogo}
             mode='elevated'
             onPress={() => console.log('Pressed')}
@@ -119,7 +119,7 @@ const UserScreen = () => {
           >
             <Button
               accessibilityLabel='Login'
-              buttonColor='#FFF'
+              buttonColor='#292828a4'
               icon={Logos.connectedLogo}
               mode='elevated'
               onPress={() => console.log('Pressed')}

@@ -109,10 +109,17 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   authorFavContainer: {
+    borderRadius: 10,
+    backgroundColor: '#0000008c',
+    padding: 2,
+    paddingLeft: 22,
+    alignSelf: 'flex-end',
     alignItems: 'flex-end',
     justifyContent: 'flex-end',
     flexDirection: 'row',
-    marginTop: 10
+    marginRight: 10,
+    marginTop: 10,
+    marginBottom: 20
   },
   author: {
     color: 'white',
@@ -123,7 +130,8 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginLeft: 10,
-    marginBottom: 4
+    marginBottom: 4,
+    marginRight: 20
   }
 });
 

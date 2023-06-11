@@ -19,9 +19,14 @@ const promptsSlice = createSlice({
   initialState: {
     isLoading: true,
     errMsg: null,
-    promptsArray: []
+    promptsArray: [],
+    promptEntriesArray: []
   },
-  reducers: {},
+  reducers: {
+    savePromptEntry: (state, action) => {
+      state.promptEntriesArray.push(action.payload);
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchPrompts.pending, (state) => {
@@ -39,4 +44,5 @@ const promptsSlice = createSlice({
   }
 });
 
+export const { savePromptEntry } = promptsSlice.actions;
 export const promptsReducer = promptsSlice.reducer;

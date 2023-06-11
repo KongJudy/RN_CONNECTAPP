@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, ImageBackground } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import Logos from '../constants/logos';
 import { toggleFavorite } from '../features/quotes/favoritesSlice';
+import { savePromptEntry } from '../features/prompts/promptsSlice';
 import RenderQuote from '../features/quotes/RenderQuote';
 import RenderPrompt from '../features/prompts/RenderPrompt';
 
@@ -31,6 +32,7 @@ const HomeScreen = () => {
   }, [prompts]);
 
   const handleAnswer = (text) => {
+    dispatch(savePromptEntry(text));
     console.log(text);
   };
 
