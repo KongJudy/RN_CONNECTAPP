@@ -51,13 +51,6 @@ const GameScreen = () => {
     }
   }, [word]);
 
-  const toggleLike = () => {
-    setLike((prevIcon) => prevIcon === connectIcon)
-      ? connectedIcon
-      : connectIcon;
-    console.log('Already set as Favorites');
-  };
-
   const handleReport = () => {
     dispatch(reportWord(word))
       .then(() => {

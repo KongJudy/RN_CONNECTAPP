@@ -126,7 +126,7 @@ const RenderWramble = (props) => {
           </View>
           <View style={styles.buttonsContainer}>
             <Button
-              buttonColor={Colors.color07}
+              buttonColor='#1e1ec5d0'
               labelStyle={labelStyle}
               onPress={handleReset}
               style={styles.button}
@@ -134,6 +134,7 @@ const RenderWramble = (props) => {
               Reset
             </Button>
             <Button
+              butto
               buttonColor={Colors.color07}
               labelStyle={labelStyle}
               onPress={props.handleSubmit}

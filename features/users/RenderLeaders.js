@@ -15,17 +15,36 @@ import Colors from '../../constants/colors';
 const RenderLeaderboard = ({ item: user }) => {
   return (
     <ListItem containerStyle={styles.listItemContainer}>
-      <ListItem.Content>
-        <View style={styles.userInfo}>
-          <Text style={styles.name}>{user.name}</Text>
-          <Text style={styles.userDetails}>
-            Solved: {user.solved} | Score: {user.score} | Region: {user.region}
-          </Text>
-        </View>
-      </ListItem.Content>
+      <View style={{ marginLeft: 40 }}>
+        <ListItem.Content style={styles.itemContent}>
+          <View>
+            <Text style={styles.item}>{user.name}</Text>
+          </View>
+          <View>
+            <Text style={styles.item}>Solved: {user.solved}</Text>
+            <Text style={styles.item}>Score: {user.score}</Text>
+            <Text style={styles.item}>Region: {user.region}</Text>
+          </View>
+        </ListItem.Content>
+      </View>
     </ListItem>
   );
 };
+
+// const RenderLeaderboard = ({ item: user }) => {
+//   return (
+//     <ListItem containerStyle={styles.listItemContainer}>
+//       <ListItem.Content>
+//         <View style={styles.userInfo}>
+//           <Text style={styles.name}>{user.name}</Text>
+//           <Text style={styles.userDetails}>
+//             Solved: {user.solved} | Score: {user.score} | Region: {user.region}
+//           </Text>
+//         </View>
+//       </ListItem.Content>
+//     </ListItem>
+//   );
+// };
 
 const RenderLeaders = ({ closeModal }) => {
   const users = useSelector((state) => state.users.usersArray);
@@ -85,37 +104,32 @@ const styles = StyleSheet.create({
   },
   listItemContainer: {
     backgroundColor: 'transparent',
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginLeft: 30
+    flex: 1
   },
-  userInfo: {
-    marginLeft: 4
+  itemContent: {
+    flexDirection: 'row'
   },
-  name: {
+  item: {
     color: 'white',
-    fontSize: 18,
-    letterSpacing: 2,
     fontFamily: 'FuzzyBubbles',
-    textAlign: 'center'
-  },
-  userDetails: {
-    fontSize: 14,
-    color: 'lightgray'
+    fontSize: 16,
+    width: 180
   },
   modalContainer: {
     flex: 1,
     width: '100%',
-    padding: 20,
+    marginTop: 60,
     backgroundColor: 'transparent'
   },
 
   searchInput: {
+    alignSelf: 'center',
     backgroundColor: 'white',
     borderRadius: 10,
     paddingHorizontal: 10,
     paddingVertical: 5,
-    marginBottom: 20
+    marginBottom: 20,
+    width: 300
   },
   closeButton: {
     alignSelf: 'center',
@@ -123,7 +137,8 @@ const styles = StyleSheet.create({
     width: 100,
     borderRadius: 20,
     padding: 10,
-    alignItems: 'center'
+    alignItems: 'center',
+    marginBottom: 20
   },
   closeButtonText: {
     color: 'black',
