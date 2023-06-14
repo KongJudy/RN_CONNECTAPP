@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
   },
   authorFavContainer: {
     borderRadius: 10,
-    backgroundColor: '#0000008c',
+    backgroundColor: '#00000053',
     padding: 2,
     paddingLeft: 22,
     alignSelf: 'flex-end',

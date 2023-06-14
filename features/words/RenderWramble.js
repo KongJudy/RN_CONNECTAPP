@@ -6,16 +6,17 @@ import Colors from '../../constants/colors';
 
 const RenderWramble = (props) => {
   const {
-    word,
     wramble,
     wrambleState,
     wordState,
     setSelectedLetter,
     setSelectedBlock,
     setWrambleState,
-    setWordState
+    setWordState,
+    handleReset,
+    disabledLetters,
+    setDisabledLetters
   } = props;
-  const [disabledLetters, setDisabledLetters] = useState([]);
 
   const wrambleBlocks = () => {
     const letterCounts = {}; // Object to store the count of each letter
@@ -91,14 +92,6 @@ const RenderWramble = (props) => {
         </TouchableOpacity>
       ));
     }
-  };
-
-  const handleReset = () => {
-    setDisabledLetters([]); // Reset disabled letters
-    setWordState(Array(word.length).fill(null)); // Reset wordState with initial null values
-    setWrambleState([]); // Reset wrambleState
-    setSelectedLetter(null); // Reset selected letter
-    setSelectedBlock(null); // Reset selected block
   };
 
   // Style for Buttons

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import {
+  Alert,
   ImageBackground,
   StyleSheet,
   Text,
@@ -18,7 +19,6 @@ const GameScreen = () => {
   const dispatch = useDispatch();
   const [modalOpen, setModalOpen] = useState(false);
   const word = useSelector((state) => state.words.wordsArray);
-  const [loading, setLoading] = useState(true);
   const [selectedWord, setSelectedWord] = useState('');
   const [score, setScore] = useState(0);
   const [chance, setChance] = useState(5);
@@ -27,20 +27,12 @@ const GameScreen = () => {
   const [selectedBlock, setSelectedBlock] = useState(null);
   const [wrambleState, setWrambleState] = useState([]);
   const [wordState, setWordState] = useState([]);
+  const [disabledLetters, setDisabledLetters] = useState([]);
 
   useEffect(() => {
     dispatch(fetchRandomWord());
   }, [dispatch]);
 
-  const openModal = () => {
-    setModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setModalOpen(false);
-  };
-
-  // Word
   useEffect(() => {
     if (word.length > 0) {
       const newWord = word[0].toUpperCase();
@@ -51,26 +43,45 @@ const GameScreen = () => {
     }
   }, [word]);
 
-  const handleReport = () => {
-    dispatch(reportWord(word))
-      .then(() => {
-        console.log('Reported');
-      })
-      .catch((error) => {
-        console.log('Failed to report word:', error.message);
-      });
-  };
-
   const handleSubmit = () => {
     if (wordState.join('') === selectedWord) {
-      console.log('Congrats! The word is correct!');
-      // Update the score or perform any other necessary actions
-      nextRound(); // Call nextRound function to proceed to the next round
+      Alert.alert(
+        'Great Job!',
+        `You guessed correctly!\nThe word was ${selectedWord}.`,
+        [
+          {
+            text: 'OK',
+            onPress: () => {
+              console.log('OK Pressed');
+              nextRound();
+              setScore(score + 1);
+            }
+          }
+        ]
+      );
     } else {
-      console.log('Sorry, the word is incorrect. Please try again.');
-      // Reduce the chance or perform any other necessary actions
+      Alert.alert(
+        'Sorry,',
+        `${wordState.join('')} is not the word.\nTry Again.`,
+        [
+          {
+            text: 'OK',
+            onPress: () => {
+              console.log('OK Pressed');
+            }
+          }
+        ]
+      );
     }
     console.log('submitted');
+  };
+
+  const handleReset = () => {
+    setDisabledLetters([]);
+    setWordState(Array(selectedWord.length).fill(null));
+    setWrambleState([]);
+    setSelectedLetter(null);
+    setSelectedBlock(null);
   };
 
   const nextRound = () => {
@@ -79,6 +90,7 @@ const GameScreen = () => {
     setSelectedBlock(null);
     setWrambleState([]);
     setWordState([]);
+    setDisabledLetters([]);
 
     dispatch(fetchRandomWord())
       .then((response) => {
@@ -94,7 +106,25 @@ const GameScreen = () => {
       });
   };
 
+  const handleReport = () => {
+    dispatch(reportWord(selectedWord))
+      .then(() => {
+        console.log('Reported');
+      })
+      .catch((error) => {
+        console.log('Failed to report word:', error.message);
+      });
+  };
+
   console.log(selectedWord);
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
 
   return (
     <ImageBackground
@@ -134,6 +164,9 @@ const GameScreen = () => {
           setWrambleState={setWrambleState}
           setWordState={setWordState}
           handleSubmit={handleSubmit}
+          disabledLetters={disabledLetters}
+          setDisabledLetters={setDisabledLetters}
+          handleReset={handleReset}
         />
       </View>
     </ImageBackground>

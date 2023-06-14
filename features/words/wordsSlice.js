@@ -24,7 +24,15 @@ const wordsSlice = createSlice({
     answeredArray: [],
     score: 0
   },
-  reducers: {},
+  reducers: {
+    answeredWord: (state, action) => {
+      const word = action.payload;
+      state.wordsArray = state.wordsArray.filter(
+        (currentWord) => currentWord !== word
+      );
+      state.answeredArray.push(word);
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchRandomWord.pending, (state) => {
@@ -42,4 +50,5 @@ const wordsSlice = createSlice({
   }
 });
 
+export const { answeredWord } = wordsSlice.actions;
 export const wordsReducer = wordsSlice.reducer;
