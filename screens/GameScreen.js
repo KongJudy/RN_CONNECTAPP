@@ -21,7 +21,6 @@ const GameScreen = () => {
   const word = useSelector((state) => state.words.wordsArray);
   const [selectedWord, setSelectedWord] = useState('');
   const [score, setScore] = useState(0);
-  const [chance, setChance] = useState(5);
   const [wramble, setWramble] = useState([]);
   const [selectedLetter, setSelectedLetter] = useState(null);
   const [selectedBlock, setSelectedBlock] = useState(null);
@@ -30,14 +29,10 @@ const GameScreen = () => {
   const [disabledLetters, setDisabledLetters] = useState([]);
 
   useEffect(() => {
-    dispatch(fetchRandomWord());
-  }, [dispatch]);
-
-  useEffect(() => {
     if (word.length > 0) {
       const newWord = word[0].toUpperCase();
       setSelectedWord(newWord);
-      setWramble(newWord.split('').sort(() => Math.random() - 0.5));
+      setWramble(newWord.split('').sort(() => Math.random() - 0.7));
       setWrambleState(newWord.split(''));
       setWordState(new Array(newWord.length).fill(''));
     }
@@ -99,7 +94,6 @@ const GameScreen = () => {
         setWramble(newWord.split('').sort(() => Math.random() - 0.5));
         setWrambleState(newWord.split(''));
         setWordState(new Array(newWord.length).fill(''));
-        setChance(5);
       })
       .catch((error) => {
         console.log('Failed to fetch random word:', error.message);
@@ -154,7 +148,6 @@ const GameScreen = () => {
           score={score}
           report={handleReport}
           nextRound={nextRound}
-          chance={chance}
           wrambleState={wrambleState}
           wordState={wordState}
           selectedLetter={selectedLetter}
@@ -167,6 +160,7 @@ const GameScreen = () => {
           disabledLetters={disabledLetters}
           setDisabledLetters={setDisabledLetters}
           handleReset={handleReset}
+          handleReport={handleReport}
         />
       </View>
     </ImageBackground>

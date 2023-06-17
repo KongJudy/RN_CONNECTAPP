@@ -19,7 +19,6 @@ import { fetchRandomWord } from '../features/words/wordsSlice';
 import { fetchUsers } from '../features/users/usersSlice';
 import { fetchPrompts } from '../features/prompts/promptsSlice';
 import { reportWord } from '../features/words/reportsSlice';
-import { favoritesReducer } from '../features/quotes/favoritesSlice';
 
 const Tab = createBottomTabNavigator();
 

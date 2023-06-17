@@ -11,6 +11,7 @@ import {
 import { Button, Card } from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Colors from '../../constants/colors';
+import * as Animatable from 'react-native-animatable';
 
 const RenderPrompt = ({ prompt, onSubmit }) => {
   const [text, setText] = useState('');
@@ -25,7 +26,12 @@ const RenderPrompt = ({ prompt, onSubmit }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <Animatable.View
+      animation='fadeInUp'
+      duration={2000}
+      delay={1000}
+      style={styles.container}
+    >
       <Card style={styles.card}>
         <Card.Content>
           <Text style={styles.prompt}>{prompt}</Text>
@@ -86,7 +92,7 @@ const RenderPrompt = ({ prompt, onSubmit }) => {
           </KeyboardAwareScrollView>
         </View>
       </Modal>
-    </View>
+    </Animatable.View>
   );
 };
 

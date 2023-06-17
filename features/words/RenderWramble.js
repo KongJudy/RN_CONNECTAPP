@@ -1,8 +1,8 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Button } from 'react-native-paper';
 import { Octicons } from '@expo/vector-icons';
-import { useState } from 'react';
 import Colors from '../../constants/colors';
+import * as Animatable from 'react-native-animatable';
 
 const RenderWramble = (props) => {
   const {
@@ -15,7 +15,10 @@ const RenderWramble = (props) => {
     setWordState,
     handleReset,
     disabledLetters,
-    setDisabledLetters
+    setDisabledLetters,
+    handleReport,
+    score,
+    handleSubmit
   } = props;
 
   const wrambleBlocks = () => {
@@ -35,24 +38,30 @@ const RenderWramble = (props) => {
       const letterStyles = isDisabled ? styles.disabledLetter : styles.letter;
 
       return (
-        <TouchableOpacity
-          key={index}
-          style={{
-            marginRight: 6
-          }}
-          onPress={() => {
-            setSelectedLetter(letter);
-            setSelectedBlock(index);
-            if (!isDisabled) {
-              setDisabledLetters([...disabledLetters, index]);
-            }
-          }}
-          disabled={isDisabled}
+        <Animatable.View
+          animation='fadeInDown'
+          duration={100}
+          delay={100}
+          key={`${index}-${letter}`}
         >
-          <View style={blockStyles}>
-            <Text style={letterStyles}>{letter}</Text>
-          </View>
-        </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              marginRight: 6
+            }}
+            onPress={() => {
+              setSelectedLetter(letter);
+              setSelectedBlock(index);
+              if (!isDisabled) {
+                setDisabledLetters([...disabledLetters, index]);
+              }
+            }}
+            disabled={isDisabled}
+          >
+            <View style={blockStyles}>
+              <Text style={letterStyles}>{letter}</Text>
+            </View>
+          </TouchableOpacity>
+        </Animatable.View>
       );
     });
   };
@@ -60,37 +69,45 @@ const RenderWramble = (props) => {
   const wordBlocks = () => {
     if (wordState.length > 0) {
       // Only render the wordBlocks when wordState is not empty
-      return wordState.map((letter, index) => (
-        <TouchableOpacity
-          key={index}
-          style={{
-            marginRight: 6
-          }}
-          onPress={() => {
-            if (props.selectedLetter) {
-              const newWordState = [...wordState];
-              const newWrambleState = [...wrambleState];
-              newWordState[index] = props.selectedLetter;
-              newWrambleState[props.selectedBlock] = '';
-              setWordState(newWordState);
-              setWrambleState(newWrambleState);
-              setSelectedLetter(null);
-              setSelectedBlock(null);
-            }
-          }}
-        >
-          <View style={styles.block}>
-            <Text
+      return wordState.map((letter, index) => {
+        return (
+          <Animatable.View
+            animation='fadeInUp'
+            duration={100}
+            delay={100}
+            key={`${index}-${letter}`}
+          >
+            <TouchableOpacity
               style={{
-                ...styles.letter,
-                color: letter ? 'white' : 'transparent'
+                marginRight: 6
+              }}
+              onPress={() => {
+                if (props.selectedLetter) {
+                  const newWordState = [...wordState];
+                  const newWrambleState = [...wrambleState];
+                  newWordState[index] = props.selectedLetter;
+                  newWrambleState[props.selectedBlock] = '';
+                  setWordState(newWordState);
+                  setWrambleState(newWrambleState);
+                  setSelectedLetter(null);
+                  setSelectedBlock(null);
+                }
               }}
             >
-              {letter || ' '}
-            </Text>
-          </View>
-        </TouchableOpacity>
-      ));
+              <View style={styles.block}>
+                <Text
+                  style={{
+                    ...styles.letter,
+                    color: letter ? 'white' : 'transparent'
+                  }}
+                >
+                  {letter || ' '}
+                </Text>
+              </View>
+            </TouchableOpacity>
+          </Animatable.View>
+        );
+      });
     }
   };
 
@@ -130,7 +147,7 @@ const RenderWramble = (props) => {
               butto
               buttonColor={Colors.color07}
               labelStyle={labelStyle}
-              onPress={props.handleSubmit}
+              onPress={handleSubmit}
               style={[styles.button, { marginLeft: 80 }]}
             >
               Submit
@@ -152,10 +169,10 @@ const RenderWramble = (props) => {
                 icon={() => (
                   <Octicons name='report' size={30} color='#FF5C5C' />
                 )}
-                onPress={props.report}
+                onPress={handleReport}
                 style={styles.report}
               />
-              <Text style={styles.score}>score: {props.score}</Text>
+              <Text style={styles.score}>score: {score}</Text>
             </View>
           </View>
         </View>

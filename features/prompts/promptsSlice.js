@@ -25,6 +25,11 @@ const promptsSlice = createSlice({
   reducers: {
     savePromptEntry: (state, action) => {
       state.promptEntriesArray.push(action.payload);
+    },
+    removePromptEntry: (state, action) => {
+      state.promptEntriesArray = state.promptEntriesArray.filter(
+        (prompt) => prompt.text !== action.payload.text
+      );
     }
   },
   extraReducers: (builder) => {
@@ -44,5 +49,5 @@ const promptsSlice = createSlice({
   }
 });
 
-export const { savePromptEntry } = promptsSlice.actions;
+export const { savePromptEntry, removePromptEntry } = promptsSlice.actions;
 export const promptsReducer = promptsSlice.reducer;

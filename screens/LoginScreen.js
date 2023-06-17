@@ -1,28 +1,31 @@
-import { useEffect, useState } from 'react';
-import { Dimensions, ImageBackground, StyleSheet, View } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import {
+  ImageBackground,
+  ScrollView,
+  StyleSheet,
+  View,
+  KeyboardAvoidingView
+} from 'react-native';
 import { Button } from 'react-native-paper';
 import { CheckBox, Input } from 'react-native-elements';
 import * as SecureScore from 'expo-secure-store';
 import Logos from '../constants/logos';
+import RegisterScreen from './RegisterScreen';
 
-const { height, width } = Dimensions.get('window');
-
-const UserScreen = () => {
+const LoginScreen = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [remember, setRemember] = useState(false);
+  const [showRegister, setShowRegister] = useState(false);
 
-  handleLogin = () => {
+  const handleLogin = () => {
     console.log('username:', username);
     console.log('password:', password);
     console.log('remember:', remember);
     if (remember) {
       SecureScore.setItemAsync(
         'userinfo',
-        JSON.stringify({
-          username,
-          password
-        })
+        JSON.stringify({ username, password })
       ).catch((error) => console.log('Could not save user info', error));
     } else {
       SecureScore.deleteItemAsync('userinfo').catch((error) =>
@@ -50,106 +53,116 @@ const UserScreen = () => {
     letterSpacing: 4
   };
 
+  const handleRegisterClick = () => {
+    setShowRegister(true);
+  };
+
+  const handleBackToLoginClick = () => {
+    setShowRegister(false);
+  };
+
+  if (showRegister) {
+    return <RegisterScreen onBackToLoginClick={handleBackToLoginClick} />;
+  }
+
   return (
     <ImageBackground
       source={require('../assets/images/river-nature.jpg')}
-      style={styles.container}
+      style={styles.imageContainer}
       imageStyle={{ opacity: 0.7 }}
     >
-      <View style={styles.buttonContainer}>
-        <View style={styles.loginContainer}>
-          <Input
-            placeholder='USERNAME'
-            placeholderTextColor={'#000'}
-            leftIcon={{ type: 'ant-design', name: 'user' }}
-            onChangeText={(text) => setUsername(text)}
-            value={username}
-            inputContainerStyle={styles.inputStyle}
-            leftIconContainerStyle={{
-              marginLeft: 4,
-              marginRight: 6
-            }}
-            style={styles.inputText}
-          />
-          <Input
-            placeholder='PASSWORD'
-            placeholderTextColor={'#000'}
-            leftIcon={{ type: 'font-awesome', name: 'lock' }}
-            onChangeText={(text) => setPassword(text)}
-            value={password}
-            containerStyle={styles.formInput}
-            inputContainerStyle={styles.inputStyle}
-            leftIconContainerStyle={{ marginLeft: 8, marginRight: 10 }}
-            style={styles.inputText}
-          />
-          <CheckBox
-            title='REMEMBER ME'
-            center
-            checked={remember}
-            onPress={() => setRemember(!remember)}
-            containerStyle={styles.formCheckbox}
-            textStyle={{ color: '#000' }}
-            uncheckedColor='#000'
-          />
-        </View>
-        <View
-          style={{
-            marginBottom: 20,
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}
-        >
-          <Button
-            accessibilityLabel='Login'
-            buttonColor='#ffffffc4'
-            icon={Logos.connectLogo}
-            mode='elevated'
-            onPress={() => console.log('Pressed')}
-            labelStyle={labelStyle}
-            style={styles.button}
-          >
-            LOGIN
-          </Button>
-          <View
-            style={{
-              paddingTop: 10,
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}
-          >
+      <KeyboardAvoidingView
+        style={styles.container}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      >
+        <ScrollView contentContainerStyle={styles.contentContainer}>
+          <View style={styles.loginContainer}>
+            <Input
+              placeholder='USERNAME'
+              placeholderTextColor={'#000'}
+              leftIcon={{ type: 'ant-design', name: 'user' }}
+              onChangeText={(text) => setUsername(text)}
+              value={username}
+              inputContainerStyle={styles.inputStyle}
+              leftIconContainerStyle={{
+                marginLeft: 4,
+                marginRight: 6
+              }}
+              style={styles.inputText}
+            />
+            <Input
+              placeholder='PASSWORD'
+              placeholderTextColor={'#000'}
+              leftIcon={{ type: 'font-awesome', name: 'lock' }}
+              onChangeText={(text) => setPassword(text)}
+              value={password}
+              containerStyle={styles.formInput}
+              inputContainerStyle={styles.inputStyle}
+              leftIconContainerStyle={{ marginLeft: 8, marginRight: 10 }}
+              style={styles.inputText}
+            />
+            <CheckBox
+              title='REMEMBER ME'
+              center
+              checked={remember}
+              onPress={() => setRemember(!remember)}
+              containerStyle={styles.formCheckbox}
+              textStyle={{ color: '#000' }}
+              uncheckedColor='#000'
+            />
+          </View>
+          <View style={styles.buttonContainer}>
             <Button
               accessibilityLabel='Login'
-              buttonColor='#292828a4'
-              icon={Logos.connectedLogo}
+              buttonColor='#ffffffc4'
+              icon={Logos.connectLogo}
               mode='elevated'
-              onPress={() => console.log('Pressed')}
+              onPress={handleLogin}
               labelStyle={labelStyle}
               style={styles.button}
             >
-              REGISTER
+              LOGIN
             </Button>
+            <View
+              style={{
+                paddingTop: 10,
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+            >
+              <Button
+                accessibilityLabel='Register'
+                buttonColor='#292828a4'
+                icon={Logos.connectedLogo}
+                mode='elevated'
+                onPress={handleRegisterClick}
+                labelStyle={labelStyle}
+                style={styles.button}
+              >
+                REGISTER
+              </Button>
+            </View>
           </View>
-        </View>
-      </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
+  imageContainer: {
+    flex: 1
+  },
   container: {
     flex: 1,
+    marginTop: 150,
     alignItems: 'center',
     justifyContent: 'center'
-  },
-  buttonContainer: {
-    position: 'absolute',
-    height: height / 1.4
   },
   loginContainer: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
-    width: width / 1.1
+    justifyContent: 'center'
   },
   inputText: {
     fontFamily: 'Gaegu',
@@ -174,4 +187,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default UserScreen;
+export default LoginScreen;
