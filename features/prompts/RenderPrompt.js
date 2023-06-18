@@ -36,9 +36,15 @@ const RenderPrompt = ({ prompt, onSubmit }) => {
         <Card.Content>
           <Text style={styles.prompt}>{prompt}</Text>
 
-          <Button textColor={Colors.color07} onPress={openModal}>
-            Press here to write something...
+          <Button
+            style={{ alignItems: 'flex-start' }}
+            textColor={Colors.color07}
+            onPress={openModal}
+          >
+            You wrote...
           </Button>
+
+          {text !== '' && <Text style={styles.cardText}>{text}</Text>}
         </Card.Content>
       </Card>
 
@@ -142,6 +148,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     marginBottom: 12
+  },
+  cardText: {
+    fontFamily: 'FuzzyBubbles'
   }
 });
 
