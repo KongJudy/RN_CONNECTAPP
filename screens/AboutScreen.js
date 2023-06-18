@@ -56,7 +56,6 @@ const AboutScreen = () => {
             mode='contained'
             onPress={() => {
               handleModalOpen();
-              console.log('Pressed');
             }}
             labelStyle={labelStyle}
             style={styles.button}

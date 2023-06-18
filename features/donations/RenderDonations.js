@@ -28,8 +28,8 @@ const RenderDonations = ({ donations, modalClose }) => {
         <Button
           accessibilityLabel='Close View'
           mode='contained'
-          buttonColor={Colors.color01}
-          textColor='#FFF'
+          buttonColor='#072e2438'
+          textColor='#000'
           onPress={modalClose}
           style={styles.closeBtn}
         >
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 3
   },
   name: {
-    color: '#1ACA9E',
+    color: Colors.color01,
     fontFamily: 'FuzzyBubbles',
     fontSize: 22
   },
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     marginTop: 2,
     marginBottom: 20,
     borderColor: Colors.color07,
-    borderWidth: 2
+    borderWidth: 3
   }
 });
 

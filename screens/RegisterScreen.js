@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, ScrollView } from 'react-native';
 import { Button } from 'react-native-paper';
 import { CheckBox, Input } from 'react-native-elements';
 import * as SecureScore from 'expo-secure-store';
 import Logos from '../constants/logos';
-import { ScrollView } from 'react-native';
 
 const RegisterScreen = ({ onBackToLoginClick }) => {
   const [username, setUsername] = useState('');

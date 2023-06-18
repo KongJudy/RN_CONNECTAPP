@@ -47,7 +47,6 @@ const GameScreen = () => {
           {
             text: 'OK',
             onPress: () => {
-              console.log('OK Pressed');
               nextRound();
               setScore(score + 1);
             }
@@ -100,6 +99,8 @@ const GameScreen = () => {
       });
   };
 
+  console.log(selectedWord);
+
   const handleReport = () => {
     dispatch(reportWord(selectedWord))
       .then(() => {
@@ -109,8 +110,6 @@ const GameScreen = () => {
         console.log('Failed to report word:', error.message);
       });
   };
-
-  console.log(selectedWord);
 
   const openModal = () => {
     setModalOpen(true);

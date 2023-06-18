@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import Constants from 'expo-constants';
-import { Platform, View } from 'react-native';
+import { Platform, View, StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -19,6 +19,7 @@ import { fetchRandomWord } from '../features/words/wordsSlice';
 import { fetchUsers } from '../features/users/usersSlice';
 import { fetchPrompts } from '../features/prompts/promptsSlice';
 import { reportWord } from '../features/words/reportsSlice';
+import Colors from '../constants/colors';
 
 const Tab = createBottomTabNavigator();
 
@@ -64,7 +65,8 @@ const Main = () => {
           headerShown: false,
           tabBarStyle: {
             borderTopColor: '#2e1670',
-            height: 90,
+            backgroundColor: Colors.color01,
+            height: 80,
             paddingVertical: 10
           }
         }}
@@ -76,7 +78,16 @@ const Main = () => {
           options={{
             tabBarLabel: '',
             tabBarIcon: () => {
-              return <AntDesign name='home' color='#2e1670' size={28} />;
+              return (
+                <View style={styles.navIconView}>
+                  <AntDesign
+                    style={{ marginBottom: 4 }}
+                    name='home'
+                    color='#2e1670'
+                    size={28}
+                  />
+                </View>
+              );
             }
           }}
         />
@@ -86,7 +97,16 @@ const Main = () => {
           options={{
             tabBarLabel: '',
             tabBarIcon: () => {
-              return <MaterialIcons name='login' color='#2e1670' size={30} />;
+              return (
+                <View style={styles.navIconView}>
+                  <MaterialIcons
+                    style={{ marginBottom: 4 }}
+                    name='login'
+                    color='#2e1670'
+                    size={30}
+                  />
+                </View>
+              );
             }
           }}
         />
@@ -96,7 +116,16 @@ const Main = () => {
           options={{
             tabBarLabel: '',
             tabBarIcon: () => {
-              return <AntDesign name='playcircleo' color='#2e1670' size={28} />;
+              return (
+                <View style={styles.navIconView}>
+                  <AntDesign
+                    style={{ marginBottom: 4 }}
+                    name='playcircleo'
+                    color='#2e1670'
+                    size={28}
+                  />
+                </View>
+              );
             }
           }}
         />
@@ -107,11 +136,14 @@ const Main = () => {
             tabBarLabel: '',
             tabBarIcon: () => {
               return (
-                <MaterialCommunity
-                  name='puzzle-heart-outline'
-                  color='#2e1670'
-                  size={28}
-                />
+                <View style={styles.navIconView}>
+                  <MaterialCommunity
+                    style={{ marginBottom: 4 }}
+                    name='puzzle-heart-outline'
+                    color='#2e1670'
+                    size={28}
+                  />
+                </View>
               );
             }
           }}
@@ -123,7 +155,14 @@ const Main = () => {
             tabBarLabel: '',
             tabBarIcon: () => {
               return (
-                <Entypo name='info-with-circle' color='#2e1670' size={28} />
+                <View style={styles.navIconView}>
+                  <Entypo
+                    style={{ marginBottom: 4 }}
+                    name='info-with-circle'
+                    color='#2e1670'
+                    size={28}
+                  />
+                </View>
               );
             }
           }}
@@ -132,5 +171,16 @@ const Main = () => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  navIconView: {
+    backgroundColor: '#d3e2ddb0',
+    borderRadius: 30,
+    height: 50,
+    width: 50,
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
+});
 
 export default Main;
