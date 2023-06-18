@@ -119,7 +119,7 @@ const Main = () => {
               return (
                 <View style={styles.navIconView}>
                   <AntDesign
-                    style={{ marginBottom: 4 }}
+                    style={{ marginBottom: 2 }}
                     name='playcircleo'
                     color='#2e1670'
                     size={28}
@@ -157,7 +157,7 @@ const Main = () => {
               return (
                 <View style={styles.navIconView}>
                   <Entypo
-                    style={{ marginBottom: 4 }}
+                    style={{ marginBottom: 2 }}
                     name='info-with-circle'
                     color='#2e1670'
                     size={28}
@@ -179,7 +179,9 @@ const styles = StyleSheet.create({
     height: 50,
     width: 50,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    borderColor: '#00000027',
+    borderWidth: 3
   }
 });
 

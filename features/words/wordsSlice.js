@@ -31,7 +31,6 @@ const wordsSlice = createSlice({
         (currentWord) => currentWord !== word
       );
       state.answeredArray.push(word);
-      console.log(answeredArray);
     }
   },
   extraReducers: (builder) => {
