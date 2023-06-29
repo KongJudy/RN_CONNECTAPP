@@ -174,14 +174,14 @@ const Main = () => {
 
 const styles = StyleSheet.create({
   navIconView: {
-    backgroundColor: '#d3e2ddb0',
+    backgroundColor: '#dee4e2e0',
     borderRadius: 30,
     height: 50,
     width: 50,
     alignItems: 'center',
     justifyContent: 'center',
-    borderColor: '#00000027',
-    borderWidth: 3
+    borderColor: '#f1eeee59',
+    borderWidth: 4
   }
 });
 

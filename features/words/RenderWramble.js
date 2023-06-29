@@ -22,20 +22,20 @@ const RenderWramble = (props) => {
   } = props;
 
   const wrambleBlocks = () => {
-    const letterCounts = {}; // Object to store the count of each letter
-    wramble.forEach((letter) => {
-      letterCounts[letter] = (letterCounts[letter] || 0) + 1; // Increment the count of each letter
-    });
-
-    return wramble.map((letter, index) => {
-      const isDisabled =
-        disabledLetters.includes(index) || letterCounts[letter] <= 0;
-      if (!isDisabled) {
-        letterCounts[letter] -= 1; // Decrement the count of the used letter
+    const letterCounts = {};
+    for (const letter of wramble) {
+      if (!letterCounts[letter]) {
+        letterCounts[letter] = 1;
+      } else {
+        letterCounts[letter]++;
       }
+    }
 
-      const blockStyles = isDisabled ? styles.disabledBlock : styles.block;
-      const letterStyles = isDisabled ? styles.disabledLetter : styles.letter;
+    const renderedBlocks = wramble.map((letter, index) => {
+      const isDisabled =
+        disabledLetters.includes(index) || letterCounts[letter]-- <= 0;
+      const blockStyle = isDisabled ? styles.disabledBlock : styles.block;
+      const letterStyle = isDisabled ? styles.disabledLetter : styles.letter;
 
       return (
         <Animatable.View
@@ -45,9 +45,7 @@ const RenderWramble = (props) => {
           key={`${index}-${letter}`}
         >
           <TouchableOpacity
-            style={{
-              marginRight: 6
-            }}
+            style={{ marginRight: 6 }}
             onPress={() => {
               setSelectedLetter(letter);
               setSelectedBlock(index);
@@ -57,13 +55,15 @@ const RenderWramble = (props) => {
             }}
             disabled={isDisabled}
           >
-            <View style={blockStyles}>
-              <Text style={letterStyles}>{letter}</Text>
+            <View style={blockStyle}>
+              <Text style={letterStyle}>{letter}</Text>
             </View>
           </TouchableOpacity>
         </Animatable.View>
       );
     });
+
+    return renderedBlocks;
   };
 
   const wordBlocks = () => {
@@ -144,7 +144,6 @@ const RenderWramble = (props) => {
               Reset
             </Button>
             <Button
-              butto
               buttonColor={Colors.color07}
               labelStyle={labelStyle}
               onPress={handleSubmit}

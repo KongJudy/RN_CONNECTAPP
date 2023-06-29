@@ -48,7 +48,11 @@ const GameScreen = () => {
             text: 'OK',
             onPress: () => {
               nextRound();
-              setScore(score + 1);
+              setScore((currentState) => {
+                const newState = currentState + 1;
+                console.log(newState);
+                return newState;
+              });
             }
           }
         ]
@@ -71,11 +75,14 @@ const GameScreen = () => {
   };
 
   const handleReset = () => {
+    const shuffledWramble = [...wramble].sort(() => Math.random() - 0.5);
+
     setDisabledLetters([]);
     setWordState(Array(selectedWord.length).fill(null));
     setWrambleState([]);
     setSelectedLetter(null);
     setSelectedBlock(null);
+    setWramble(shuffledWramble);
   };
 
   const nextRound = () => {
@@ -93,13 +100,12 @@ const GameScreen = () => {
         setWramble(newWord.split('').sort(() => Math.random() - 0.5));
         setWrambleState(newWord.split(''));
         setWordState(new Array(newWord.length).fill(''));
+        console.log(newWord);
       })
       .catch((error) => {
         console.log('Failed to fetch random word:', error.message);
       });
   };
-
-  console.log(selectedWord);
 
   const handleReport = () => {
     dispatch(reportWord(selectedWord))
